@@ -1,7 +1,7 @@
-// script.js — final production-ready controller
+// script.js — final controller (audio removed)
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ---------- DOM refs (safe lookups)
+  // ---------- DOM refs
   const openBtn = document.getElementById("open-btn");
   const flap = document.getElementById("flap");
   const envelopeScreen = document.getElementById("envelope-screen");
@@ -10,19 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const card = document.getElementById("card");
   const confettiRoot = document.getElementById("confetti");
 
-  const audio = document.getElementById("bg-audio");
-  const audioToggle = document.getElementById("audio-toggle");
-  const audioMute = document.getElementById("audio-mute");
-
-  // guard: essential elements
-  if (!openBtn || !flap || !envelopeScreen || !cardStage || !cardWrapper || !card) {
-    console.warn("Some expected elements are missing. Script will still try to run gracefully.");
-  }
-
-  // small helper
+  // helper
   const wait = ms => new Promise(res => setTimeout(res, ms));
 
-  // ---------- Confetti generator (DOM pieces)
+  // ---------- Confetti generator
   function launchConfettiBurst(count = 30) {
     if (!confettiRoot) return;
     const colors = ["#ffb3cc", "#ffd1e6", "#ff9db5", "#ffe0ec", "#ffc7d9", "#ffffff"];
@@ -48,60 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (piece && piece.parentNode) piece.parentNode.removeChild(piece);
       }, 3800);
     }
-  }
-
-  // ---------- Audio helpers
-  if (audio) {
-    audio.volume = 0.5;
-    audio.loop = true;
-  }
-
-  async function tryPlayAudio() {
-    if (!audio) return;
-    try {
-      audio.currentTime = 0;
-      await audio.play();
-      if (audioToggle) {
-        audioToggle.textContent = "⏸";
-        audioToggle.setAttribute("aria-pressed", "true");
-      }
-    } catch (err) {
-      // autoplay blocked — show play icon so user can manually start
-      if (audioToggle) {
-        audioToggle.textContent = "▶";
-        audioToggle.setAttribute("aria-pressed", "false");
-      }
-      console.warn("Audio play blocked or failed:", err);
-    }
-  }
-
-  // attach audio controls if present
-  if (audioToggle) {
-    audioToggle.addEventListener("click", async () => {
-      if (!audio) return;
-      if (audio.paused) {
-        try {
-          await audio.play();
-          audioToggle.textContent = "⏸";
-          audioToggle.setAttribute("aria-pressed", "true");
-        } catch (e) {
-          console.warn("Play blocked:", e);
-        }
-      } else {
-        audio.pause();
-        audioToggle.textContent = "▶";
-        audioToggle.setAttribute("aria-pressed", "false");
-      }
-    });
-  }
-
-  if (audioMute) {
-    audioMute.addEventListener("click", () => {
-      if (!audio) return;
-      audio.muted = !audio.muted;
-      audioMute.textContent = audio.muted ? "🔇" : "🔈";
-      audioMute.setAttribute("aria-pressed", (!audio.muted).toString());
-    });
   }
 
   // ---------- Opening sequence
@@ -136,19 +73,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // 5) confetti burst
     launchConfettiBurst(40);
 
-    // 6) try play audio (this is a user gesture)
-    tryPlayAudio();
-
-    // 7) open the card hinge
+    // 6) open the card hinge
     await wait(950);
     if (card) card.classList.add("open");
     await wait(650);
     if (card) card.classList.add("open-final");
 
-    // 8) another confetti
+    // 7) another confetti
     launchConfettiBurst(20);
 
-    // 9) periodic delight bursts
+    // 8) periodic delight bursts
     setInterval(() => launchConfettiBurst(12), 9000);
   }
 
@@ -161,22 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
         startOpeningSequence();
       }
     });
-  } else {
-    // if no openBtn, start automatically after 300ms (useful for debugging)
-    // comment this out if you never want auto open
-    // setTimeout(startOpeningSequence, 300);
   }
 
-  // ESC pauses audio
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && audio && !audio.paused) {
-      audio.pause();
-      if (audioToggle) {
-        audioToggle.textContent = "▶";
-        audioToggle.setAttribute("aria-pressed", "false");
-      }
-    }
-  });
-
 });
-
