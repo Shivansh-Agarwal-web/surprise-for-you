@@ -1,1 +1,382 @@
+/* =====================================================
+   GLOBAL RESET & VARIABLES
+===================================================== */
+:root {
+  --rose-light: #fdeff1;
+  --rose-mid: #f6d7dd;
+  --rose-accent: #e6bfc5;
+  --rose-strong: #ff9db5;
+  --text-dark: #4a2a33;
+
+  --shadow: rgba(199,133,150,0.2);
+  --shadow-heavy: rgba(199,133,150,0.32);
+
+  --transition-mid: .7s cubic-bezier(.2,.9,.2,1);
+  --transition-fast: .28s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background: linear-gradient(180deg, #fff3f6, #ffeaf0);
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.screen {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* =====================================================
+   ENVELOPE SCREEN
+===================================================== */
+.envelope-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.envelope {
+  max-width: 60%;
+  height: auto;
+  filter: drop-shadow(0 20px 36px var(--shadow));
+}
+
+.open-btn {
+  font-family: "Dancing Script", cursive;
+  font-size: 28px;
+  padding: 14px 36px;
+  border-radius: 42px;
+  background: linear-gradient(90deg, #ffdfe8, #ffcfdd);
+  border: 2px solid #e7b4c4;
+  color: var(--text-dark);
+  cursor: pointer;
+  box-shadow: 0 10px 24px var(--shadow);
+  transition: transform .18s ease, box-shadow .25s ease;
+}
+
+.open-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px var(--shadow-heavy);
+}
+
+.open-btn:active {
+  transform: translateY(1px);
+}
+
+.open-hint {
+  color: #8a5a6b;
+  font-size: 14px;
+  opacity: .95;
+}
+
+/* flap opening animation */
+#flap.open {
+  animation: flapOpen .7s forwards cubic-bezier(.2,.9,.2,1);
+}
+
+@keyframes flapOpen {
+  0%   { transform: rotateX(0deg); }
+  100% { transform: rotateX(-92deg); }
+}
+
+/* =====================================================
+   CARD BACKGROUND
+===================================================== */
+.bg-ribbons {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255,230,240,.45), transparent 60%),
+    linear-gradient(225deg, rgba(255,230,240,.35), transparent 60%),
+    linear-gradient(315deg, rgba(255,240,245,.35), transparent 70%);
+  z-index: 0;
+}
+
+.sparkle-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: radial-gradient(circle, #fff, #ffd3e5);
+  border-radius: 50%;
+  opacity: .8;
+  filter: blur(.6px);
+  animation: twinkle 4s linear infinite;
+}
+
+.s1 { left: 10%; top: 18%; }
+.s2 { left: 82%; top: 38%; }
+.s3 { left: 48%; top: 72%; }
+
+@keyframes twinkle {
+  0% { transform: scale(.7); opacity: .3; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(.7); opacity: .3; }
+}
+
+/* =====================================================
+   CARD + WRAPPER
+===================================================== */
+.card-stage {
+  display: none;
+}
+
+.card-wrapper {
+  opacity: 0;
+  transform: translateY(30vh) scale(.86);
+  transition: transform 1s cubic-bezier(.2,.9,.2,1), opacity .5s ease;
+  z-index: 3;
+}
+
+.card-wrapper.slide-in {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.card {
+  width: 820px;
+  max-width: 94vw;
+  height: 480px;
+  background: linear-gradient(180deg, #fff9fc, #ffeef5);
+  border-radius: 16px;
+  box-shadow: 0 34px 68px var(--shadow-heavy);
+  display: flex;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform .9s cubic-bezier(.2,.9,.2,1);
+}
+
+.card.open {
+  transform: rotateY(-12deg);
+}
+
+.card.open-final {
+  transform: rotateY(0deg);
+}
+
+.page {
+  width: 50%;
+  position: relative;
+  padding: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =====================================================
+   BALLOONS
+===================================================== */
+.balloons {
+  position: absolute;
+  left: 4%;
+  top: 6%;
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+}
+
+.balloon {
+  position: absolute;
+  animation: floatBalloon 6s ease-in-out infinite;
+  filter: drop-shadow(0 10px 18px rgba(200,120,150,.24));
+}
+
+.b1 {
+  left: 0;
+  top: 0;
+  width: 72px;
+  height: 110px;
+  animation-duration: 6.2s;
+}
+
+.b2 {
+  left: 90px;
+  top: 8px;
+  width: 62px;
+  height: 98px;
+  animation-duration: 5.6s;
+}
+
+@keyframes floatBalloon {
+  0% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-20px) rotate(3deg); }
+  100% { transform: translateY(0) rotate(-3deg); }
+}
+
+/* =====================================================
+   CAKE
+===================================================== */
+.cake-left {
+  position: absolute;
+  left: 28%;
+  top: 20%;
+  transform: translateX(-50%);
+  animation: cakeFloat 3.8s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes cakeFloat {
+  0% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+.flame {
+  animation: flameFlicker .18s alternate infinite;
+}
+
+@keyframes flameFlicker {
+  from { transform: scale(1); opacity: .85; }
+  to   { transform: scale(1.12); opacity: 1; }
+}
+
+/* =====================================================
+   CATS
+===================================================== */
+.cat {
+  position: absolute;
+  animation: catBob 3.2s ease-in-out infinite;
+  transform-origin: center;
+  z-index: 3;
+}
+
+.cat-left {
+  left: 8px;
+  bottom: 12px;
+  width: 120px;
+  height: 120px;
+}
+
+.cat-right {
+  right: 12px;
+  bottom: 18px;
+  width: 88px;
+  height: 88px;
+}
+
+@keyframes catBob {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+.eye {
+  animation: blink 6s infinite;
+  transform-origin: center;
+}
+
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  93%, 99% { transform: scaleY(.05); }
+}
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+.message {
+  text-align: center;
+  max-width: 86%;
+}
+
+.message h1 {
+  font-family: "Dancing Script", cursive;
+  font-size: 46px;
+  color: #c85b76;
+  margin-bottom: 12px;
+}
+
+.message p {
+  font-size: 20px;
+  line-height: 1.45;
+  color: #6b3a43;
+}
+
+/* =====================================================
+   CONFETTI
+===================================================== */
+.confetti > div {
+  position: absolute;
+  width: 9px;
+  height: 12px;
+  background: var(--rose-strong);
+  opacity: .95;
+  border-radius: 2px;
+  animation: confettiFall 2.6s forwards ease-in;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(60vh) rotate(380deg);
+    opacity: 0;
+  }
+}
+
+/* =====================================================
+   AUDIO CONTROLS
+===================================================== */
+.audio-controls {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.audio-btn {
+  background: linear-gradient(180deg, #fff, #ffeef6);
+  border: 1.4px solid #ffd6e6;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 6px 18px rgba(200,130,150,0.12);
+  transition: transform .2s ease;
+}
+
+.audio-btn:active {
+  transform: scale(.95);
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 900px) {
+  .envelope { max-width: 74%; }
+  .card { height: 420px; }
+}
+
+@media (max-width: 640px) {
+  .envelope { max-width: 90%; }
+  .card { height: 370px; }
+  .message h1 { font-size: 34px; }
+  .message p { font-size: 16px; }
+}
 
