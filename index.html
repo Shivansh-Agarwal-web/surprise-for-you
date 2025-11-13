@@ -1,1 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday Isha 🎀</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <meta name="theme-color" content="#f7dfe6" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main class="app">
+
+    <!-- ENVELOPE SCREEN -->
+    <section id="envelope-screen" class="screen envelope-screen">
+
+      <div class="envelope-center">
+        <!-- Enlarged envelope -->
+        <svg id="envelope" class="envelope" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="env-back" x1="0" x2="1">
+              <stop offset="0" stop-color="#fdeff1" />
+              <stop offset="1" stop-color="#f6d7dd" />
+            </linearGradient>
+
+            <linearGradient id="env-flap" x1="0" x2="1">
+              <stop offset="0" stop-color="#ffdfe8" />
+              <stop offset="1" stop-color="#ffcfdd" />
+            </linearGradient>
+
+            <filter id="envShadow" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#e6bfc5" flood-opacity="0.18" />
+            </filter>
+          </defs>
+
+          <!-- envelope back -->
+          <rect x="80" y="80" rx="26" ry="26" width="640" height="340" fill="url(#env-back)" stroke="#e6bfc5" stroke-width="2" filter="url(#envShadow)"></rect>
+
+          <!-- flap -->
+          <g id="flap" transform-origin="400px 80px">
+            <path d="M400 80 L720 80 L400 320 L80 80 Z" fill="url(#env-flap)" stroke="#e6bfc5" stroke-width="2"></path>
+            <path d="M400 320 L80 80 L400 80" stroke="rgba(255,255,255,.3)" stroke-width="14" fill="none"></path>
+          </g>
+
+          <ellipse cx="660" cy="140" rx="36" ry="14" fill="rgba(255,255,255,0.28)" />
+        </svg>
+
+        <button id="open-btn" class="open-btn">Open Envelope</button>
+        <p class="open-hint">Tap to reveal your surprise ✨</p>
+      </div>
+
+    </section>
+
+    <!-- CARD STAGE -->
+    <section id="card-stage" class="screen card-stage" aria-hidden="true">
+
+      <!-- Background ribbons and sparkles -->
+      <div class="bg-ribbons"></div>
+      <div class="sparkle-layer">
+        <span class="spark s1"></span>
+        <span class="spark s2"></span>
+        <span class="spark s3"></span>
+      </div>
+
+      <!-- Card wrapper -->
+      <div id="card-wrapper" class="card-wrapper">
+        <article id="card" class="card">
+
+          <!-- LEFT PAGE (decor + cake + balloons + cat) -->
+          <div class="page left-page">
+
+            <!-- Balloons (smaller, positioned left) -->
+            <div class="balloons">
+              <svg class="balloon b1" viewBox="0 0 64 100">
+                <defs>
+                  <linearGradient id="ball1" x1="0" x2="1">
+                    <stop offset="0" stop-color="#ffd6ea" />
+                    <stop offset="1" stop-color="#ff9db5" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="32" cy="40" rx="24" ry="34" fill="url(#ball1)" />
+                <line x1="32" y1="74" x2="32" y2="98" stroke="#e8a9c0" stroke-width="2" />
+                <circle cx="22" cy="30" r="5" fill="rgba(255,255,255,0.45)" />
+              </svg>
+
+              <svg class="balloon b2" viewBox="0 0 64 100">
+                <defs>
+                  <linearGradient id="ball2" x1="0" x2="1">
+                    <stop offset="0" stop-color="#fff1f6" />
+                    <stop offset="1" stop-color="#ffdbe9" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="32" cy="42" rx="20" ry="30" fill="url(#ball2)" />
+                <line x1="32" y1="72" x2="32" y2="96" stroke="#e8a9c0" stroke-width="2" />
+                <circle cx="24" cy="32" r="4.5" fill="rgba(255,255,255,0.5)" />
+              </svg>
+            </div>
+
+            <!-- Cake (left page, center-left) -->
+            <div class="cake cake-left">
+              <svg viewBox="0 0 120 120" width="110" height="110" aria-hidden="true">
+                <g>
+                  <rect x="18" y="56" width="84" height="36" rx="10" fill="#ffe7f0" stroke="#eaa0bd" stroke-width="2"/>
+                  <rect x="28" y="40" width="64" height="16" rx="6" fill="#fff" stroke="#f3c3d8" stroke-width="2"/>
+                  <rect x="58" y="26" width="4" height="14" fill="#ff8aa6" rx="1.2"/>
+                  <ellipse class="flame" cx="60" cy="22" rx="5" ry="7" fill="#ffb1c7"/>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Left Cat -->
+            <div class="cat cat-left">
+              <svg viewBox="0 0 120 120" width="120" height="120" aria-hidden="true">
+                <g>
+                  <ellipse cx="60" cy="80" rx="34" ry="22" fill="#fff2f7"/>
+                  <path d="M36 50 Q46 26 60 40 Q74 26 84 50 Q70 42 60 54 Q50 42 36 50 Z" fill="#ffc7dc"/>
+                  <circle cx="46" cy="64" r="8" fill="#fff"/>
+                  <circle cx="74" cy="64" r="8" fill="#fff"/>
+                  <circle cx="48" cy="64" r="3" fill="#2b2b2b" class="eye eye-left"/>
+                  <circle cx="72" cy="64" r="3" fill="#2b2b2b" class="eye eye-right"/>
+                </g>
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- RIGHT PAGE (message + right cat) -->
+          <div class="page right-page">
+            <div class="message">
+              <h1>Happy Birthday, Isha!</h1>
+              <p>
+                Wishing you a day full of joy and sweet surprises.<br>
+                May this year bring you endless happiness.
+              </p>
+            </div>
+
+            <!-- Right Cat (small) -->
+            <div class="cat cat-right">
+              <svg viewBox="0 0 120 120" width="88" height="88" aria-hidden="true">
+                <g>
+                  <ellipse cx="60" cy="74" rx="28" ry="18" fill="#fff4f8"/>
+                  <path d="M44 44 Q60 26 76 44 Q60 36 44 44 Z" fill="#ffc7dc"/>
+                  <circle cx="52" cy="62" r="6" fill="#fff"/>
+                  <circle cx="68" cy="62" r="6" fill="#fff"/>
+                  <circle cx="54" cy="62" r="2.8" fill="#262626" class="eye eye-left"/>
+                  <circle cx="66" cy="62" r="2.8" fill="#262626" class="eye eye-right"/>
+                </g>
+              </svg>
+            </div>
+
+          </div>
+
+        </article>
+      </div>
+
+      <!-- Confetti DOM -->
+      <div id="confetti" class="confetti"></div>
+
+      <!-- Audio controls -->
+      <div class="audio-controls">
+        <button id="audio-toggle" class="audio-btn">▶</button>
+        <button id="audio-mute" class="audio-btn">🔈</button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Happy Birthday audio (served at /happy-birthday.mp3) -->
+  <audio id="bg-audio" src="/happy-birthday.mp3" preload="auto" loop></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
