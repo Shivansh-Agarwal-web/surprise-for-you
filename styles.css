@@ -339,33 +339,6 @@ html, body {
 }
 
 /* =====================================================
-   AUDIO CONTROLS
-===================================================== */
-.audio-controls {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.audio-btn {
-  background: linear-gradient(180deg, #fff, #ffeef6);
-  border: 1.4px solid #ffd6e6;
-  padding: 8px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 16px;
-  box-shadow: 0 6px 18px rgba(200,130,150,0.12);
-  transition: transform .2s ease;
-}
-
-.audio-btn:active {
-  transform: scale(.95);
-}
-
-/* =====================================================
    RESPONSIVE
 ===================================================== */
 @media (max-width: 900px) {
@@ -379,4 +352,3 @@ html, body {
   .message h1 { font-size: 34px; }
   .message p { font-size: 16px; }
 }
-
